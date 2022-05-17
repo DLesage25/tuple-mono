@@ -1,0 +1,6 @@
+-   auth with auth0
+-   set up api with graphql
+-   user sign in flow through api
+-   determine how docker compose file would work
+-   copy functionality from docker api
+-   study deployment with kubernetes
