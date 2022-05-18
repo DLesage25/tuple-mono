@@ -9,6 +9,7 @@
     },
     "private": true,
     "dependencies": {
+        "@auth0/nextjs-auth0": "^1.8.0",
         "@headlessui/react": "^1.6.1",
         "@heroicons/react": "^1.0.6",
         "@nestjs/common": "^8.0.0",

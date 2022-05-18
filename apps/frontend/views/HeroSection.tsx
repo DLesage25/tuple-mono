@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const navigation = [
     { name: 'Product', href: '#' },
@@ -22,7 +24,7 @@ export default function HeroSection() {
                     >
                         <div className="flex items-center flex-1">
                             <div className="flex items-center justify-between w-full md:w-auto">
-                                <a href="#">
+                                {/* <a href="/test">
                                     <span className="sr-only">Workflow</span>
                                     <Image
                                         className="h-8 w-auto sm:h-10"
@@ -30,7 +32,7 @@ export default function HeroSection() {
                                         layout="fill"
                                         alt=""
                                     />
-                                </a>
+                                </a> */}
                                 <div className="-mr-2 flex items-center md:hidden">
                                     <Popover.Button className="bg-gray-900 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-white">
                                         <span className="sr-only">
@@ -57,17 +59,16 @@ export default function HeroSection() {
                         </div>
                         <div className="hidden md:flex md:items-center md:space-x-6">
                             <a
-                                href="#"
+                                href="/api/auth/login"
                                 className="text-base font-medium text-white hover:text-gray-300"
                             >
                                 Log in
                             </a>
-                            <a
-                                href="#"
-                                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                            >
-                                Start free trial
-                            </a>
+                            <Link href="/test">
+                                <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700">
+                                    Start free trial
+                                </a>
+                            </Link>
                         </div>
                     </nav>
                 </div>
@@ -131,7 +132,7 @@ export default function HeroSection() {
                                     <p className="text-center text-base font-medium text-gray-500">
                                         Existing customer?{' '}
                                         <a
-                                            href="#"
+                                            href="/api/auth/login"
                                             className="text-gray-900 hover:underline"
                                         >
                                             Login
@@ -227,7 +228,6 @@ export default function HeroSection() {
                             </div>
                             <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
                                 <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-                                    {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
                                     <Image
                                         className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
                                         src="https://tailwindui.com/img/component-images/cloud-illustration-indigo-400.svg"
