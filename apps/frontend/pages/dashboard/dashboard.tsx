@@ -1,5 +1,5 @@
-import Auth from '../../components/Auth';
-import AppShell from '../../components/AppShell';
+import Auth from '../../components/common/Auth';
+import AppShell from '../../views/common/AppShell';
 
 export default function Dashboard() {
     return (
