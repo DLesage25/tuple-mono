@@ -11,7 +11,11 @@ const nextConfig = {
         svgr: false,
     },
     images: {
-        domains: ['tailwindui.com'],
+        domains: [
+            'tailwindui.com',
+            'images.unsplash.com',
+            'lh3.googleusercontent.com',
+        ],
     },
 };
 

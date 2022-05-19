@@ -1,22 +1,26 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import Router from 'next/router';
 import { useEffect } from 'react';
+import LoaderPage from './LoaderPage';
 
 //TODO improve auth checks
 const Auth = ({ children: Children }) => {
     const authState = useUser();
-    const { email } = authState.user;
-    const { pathname } = Router;
+    const { user, isLoading } = authState;
 
     useEffect(() => {
-        if (pathname !== '/' && !email) {
+        const { pathname } = Router;
+
+        if (pathname !== '/' && !user?.email) {
             Router.push('/');
         }
 
-        if (pathname === '/' && email) {
+        if (pathname === '/' && user?.email) {
             Router.push('/dashboard');
         }
-    }, [email, pathname]);
+    }, [user]);
+
+    if (isLoading) return <LoaderPage />;
 
     return <>{Children}</>;
 };

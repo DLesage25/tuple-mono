@@ -9,7 +9,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
             <Head>
                 <title>Welcome to frontend!</title>
             </Head>
-            <main className="app">
+            <main className="app h-full">
                 <UserProvider>
                     <Component {...pageProps} />
                 </UserProvider>
