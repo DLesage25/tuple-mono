@@ -1,0 +1,11 @@
+FROM node:lts-slim@sha256:f8b7f44cb0987ba4b5a63da2dd9d9303f06e0fb6c3366821a86e2ef49ca92b82
+
+WORKDIR /usr/src/app
+
+COPY ["package.json", "package-lock.json", "./"] 
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build

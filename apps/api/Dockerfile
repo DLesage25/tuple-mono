@@ -10,7 +10,7 @@ COPY ["package.json", "package-lock.json", "./"]
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-RUN npm install --production
+RUN npm ci
 RUN npm install reflect-metadata tslib @nestjs/platform-express
 
 USER node
