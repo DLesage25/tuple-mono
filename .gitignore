@@ -38,3 +38,4 @@ testem.log
 .DS_Store
 Thumbs.db
 apps/api/.env
+apps/frontend/.env.local

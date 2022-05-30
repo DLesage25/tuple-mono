@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+    postgres:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: db
+            PG_DATA: /var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+        volumes:
+            - tuple-db:/var/lib/postgresql/data
+        networks:
+            - webnet
+    pgadmin:
+        container_name: pgadmin4_container
+        image: dpage/pgadmin4
+        restart: always
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: root
+        ports:
+            - '5050:80'
+        networks:
+            - webnet
+    # api:
+    #     build:
+    #         context: .
+    #         dockerfile: ./apps/api/Dockerfile
+    #     environment:
+    #         DB_URL: postgres://user:password@postgres:5432/db
+    #         DB_USER: user
+    #         DB_PASSWORD: password
+    #         DB_HOST: db
+    #     ports:
+    #         - 3000:3000
+    #     env_file:
+    #         - ./apps/api/.env
+    #     networks:
+    #         - webnet
+    #     depends_on:
+    #         - postgres
+networks:
+    webnet:
+volumes:
+    tuple-db:
