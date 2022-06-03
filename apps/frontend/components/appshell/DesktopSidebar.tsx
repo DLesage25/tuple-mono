@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import {
     CalendarIcon,
@@ -11,6 +10,7 @@ import {
     UsersIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '../../utils/classNames';
+import { useUserContext } from '../../context/userContext';
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -22,8 +22,8 @@ const navigation = [
 ];
 
 export default function DesktopSidebar() {
-    const userData = useUser();
-    const { given_name, picture } = userData.user;
+    const { userData } = useUserContext();
+    const { name, picture } = userData;
 
     return (
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
@@ -83,7 +83,7 @@ export default function DesktopSidebar() {
                         </div>
                         <div className="ml-3">
                             <p className="text-sm font-medium text-white">
-                                {given_name as string}
+                                {name}
                             </p>
                             <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">
                                 View profile

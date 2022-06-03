@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import Router from 'next/router';
+import Image from 'next/image';
+
 import {
     CalendarIcon,
     ChartBarIcon,
@@ -11,9 +14,11 @@ import {
     UsersIcon,
     XIcon,
 } from '@heroicons/react/outline';
-import Image from 'next/image';
+
 import DesktopSidebar from '../../components/appshell/DesktopSidebar';
 import { classNames } from '../../utils/classNames';
+import { useUserContext } from '../../context/userContext';
+import LoaderPage from '../../components/common/LoaderPage';
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -24,8 +29,21 @@ const navigation = [
     { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 ];
 
-export default function AppShell({ children }) {
+export default function AppShell({
+    children,
+    token,
+}: {
+    token?: string;
+    children: React.ReactNode;
+}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { userData } = useUserContext();
+
+    useEffect(() => {
+        if (!userData) Router.push('/logged_in');
+    });
+
+    if (!userData) return <LoaderPage />;
 
     return (
         <>

@@ -11,12 +11,19 @@ export class UsersService {
         private userModel: typeof User
     ) {}
 
-    async findAll(): Promise<User[]> {
+    findAll(): Promise<User[]> {
         return this.userModel.findAll<User>();
     }
 
-    async createUser(createUserDto: CreateUserDto) {
-        console.log(process.env);
+    findBySub(sub: string): Promise<User> {
+        return this.userModel.findOne({
+            where: {
+                sub,
+            },
+        });
+    }
+
+    createUser(createUserDto: CreateUserDto) {
         return this.userModel.create({ ...createUserDto, id: uuidv4() });
     }
 }

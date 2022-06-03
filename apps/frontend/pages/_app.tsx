@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { UserProvider } from '@auth0/nextjs-auth0';
+import { UserProvider } from '../context/userContext';
 
 function CustomApp({ Component, pageProps }: AppProps) {
     return (
