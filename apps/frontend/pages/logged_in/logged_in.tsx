@@ -1,10 +1,9 @@
+import { useEffect } from 'react';
+import Router from 'next/router';
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import LoaderPage from '../../components/common/LoaderPage';
-import Router from 'next/router';
-import { useEffect } from 'react';
 import { useUserContext } from '../../context/userContext';
 import useApi from '../../hooks/useApi';
-import AppShell from '../../views/common/AppShell';
 
 function LoggedIn() {
     const { user: authUser } = useUser();
