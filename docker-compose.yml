@@ -25,23 +25,37 @@ services:
             - '5050:80'
         networks:
             - webnet
-    # api:
-    #     build:
-    #         context: .
-    #         dockerfile: ./apps/api/Dockerfile
-    #     environment:
-    #         DB_URL: postgres://user:password@postgres:5432/db
-    #         DB_USER: user
-    #         DB_PASSWORD: password
-    #         DB_HOST: db
-    #     ports:
-    #         - 3000:3000
-    #     env_file:
-    #         - ./apps/api/.env
-    #     networks:
-    #         - webnet
-    #     depends_on:
-    #         - postgres
+    api:
+        build:
+            context: .
+            dockerfile: ./apps/api/Dockerfile
+        environment:
+            DB_URL: postgres://user:password@postgres:5432/db
+            DB_USER: user
+            DB_PASSWORD: password
+            DB_HOST: db
+        ports:
+            - 3000:3000
+        env_file:
+            - ./apps/api/.env
+        networks:
+            - webnet
+        depends_on:
+            - postgres
+    frontend:
+        build:
+            context: .
+            dockerfile: ./apps/frontend/Dockerfile
+        environment:
+            test: 'true'
+        ports:
+            - 4200:4200
+        env_file:
+            - ./apps/frontend/.env.local
+        networks:
+            - webnet
+        depends_on:
+            - api
 networks:
     webnet:
 volumes:

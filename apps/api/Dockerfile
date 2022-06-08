@@ -1,17 +1,50 @@
-FROM node:lts-slim@sha256:f8b7f44cb0987ba4b5a63da2dd9d9303f06e0fb6c3366821a86e2ef49ca92b82
+FROM node:16-alpine AS deps 
 
-RUN apt-get -qy update && apt-get -qy install openssl dumb-init
+RUN apk add --no-cache libc6-compat
 
-WORKDIR /usr/src/app
+# node-gyp requires python to be installed
+RUN apk add --update python3 make g++\
+    && rm -rf /var/cache/apk/*
 
-COPY ["/dist/apps/api", "."]
-COPY ["package.json", "package-lock.json", "./"] 
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
+WORKDIR /app
+COPY package.json package-lock.json ./ 
 RUN npm ci
-RUN npm install reflect-metadata tslib @nestjs/platform-express
+
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+RUN npm run build
+
+FROM node:16-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV development
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nodejs
+
+COPY --from=builder /app/apps/api/.env ./
 
 USER node
-CMD ["dumb-init", "node", "main.js"]
+
+EXPOSE 3000
+
+ENV PORT 3000
+
+CMD ["node", "main.js"]
+
+# WORKDIR /usr/src/app
+
+# COPY ["/dist/apps/api", "."]
+# COPY ["package.json", "package-lock.json", "./"] 
+
+# ARG NODE_ENV=production
+# ENV NODE_ENV=${NODE_ENV}
+
+# RUN npm ci
+# RUN npm install reflect-metadata tslib @nestjs/platform-express
+
+# USER node
+# CMD ["dumb-init", "node", "main.js"]
