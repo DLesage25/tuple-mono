@@ -9,7 +9,7 @@ services:
             POSTGRES_DB: db
             PG_DATA: /var/lib/postgresql/data
         ports:
-            - '5432:5432'
+            - 5432:5432
         volumes:
             - tuple-db:/var/lib/postgresql/data
         networks:
@@ -51,7 +51,7 @@ services:
         ports:
             - 4200:4200
         env_file:
-            - ./apps/frontend/.env.local
+            - ./apps/frontend/.env
         networks:
             - webnet
         depends_on:
