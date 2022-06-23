@@ -7,6 +7,7 @@
         "api:start:dev": "npx @nestjs/cli start --watch",
         "build": "nx run-many --target=build --all --maxParallel=5",
         "build:frontend": "nx run frontend:build",
+        "build:api": "nx run api:build",
         "test": "nx test"
     },
     "private": true,

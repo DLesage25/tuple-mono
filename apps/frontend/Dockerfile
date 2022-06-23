@@ -13,7 +13,6 @@ COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-
 FROM node:17.1.0-alpine3.12 AS production
 WORKDIR /app
 ENV NODE_ENV=production
