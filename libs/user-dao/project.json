@@ -1,0 +1,22 @@
+{
+    "root": "libs/user-dao",
+    "sourceRoot": "libs/user-dao/src",
+    "targets": {
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/user-dao/**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/libs/user-dao"],
+            "options": {
+                "jestConfig": "libs/user-dao/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}

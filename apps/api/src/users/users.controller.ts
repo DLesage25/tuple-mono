@@ -3,36 +3,38 @@ import {
     Get,
     NotFoundException,
     Param,
-    Post,
     UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UsersService } from './users.service';
+import { UserService } from '@tuple/service-modules';
+import { map } from 'rxjs';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('users')
 export class UsersController {
-    constructor(private readonly service: UsersService) {}
+    constructor(private readonly service: UserService) {}
 
     @Get()
     findAll() {
-        return this.service.findAll();
+        return this.service.getUsers();
     }
 
     @Get('/sub/:sub')
     findBySub(@Param('sub') sub: string) {
-        return this.service.findBySub(sub).then((user) => {
-            if (!user)
-                return new NotFoundException(`User with ${sub} not found.`);
-            return user;
-        });
+        return this.service.getUser(sub).pipe(
+            map((user) => {
+                if (!user)
+                    return new NotFoundException(`User with ${sub} not found.`);
+                return user;
+            })
+        );
     }
 
-    @Post()
-    createUser() {
-        return this.service.createUser({
-            name: 'dan',
-            email: 'dan@partnerhero.com',
-        });
-    }
+    // @Post()
+    // createUser() {
+    //     return this.service.createUser({
+    //         name: 'dan',
+    //         email: 'dan@partnerhero.com',
+    //     });
+    // }
 }

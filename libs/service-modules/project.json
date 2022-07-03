@@ -1,0 +1,22 @@
+{
+    "root": "libs/service-modules",
+    "sourceRoot": "libs/service-modules/src",
+    "targets": {
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/service-modules/**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/libs/service-modules"],
+            "options": {
+                "jestConfig": "libs/service-modules/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}
