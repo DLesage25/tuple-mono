@@ -2,6 +2,7 @@
     "version": 2,
     "projects": {
         "api": "apps/api",
+        "auth": "libs/auth",
         "frontend": "apps/frontend",
         "frontend-e2e": "apps/frontend-e2e",
         "service-modules": "libs/service-modules",

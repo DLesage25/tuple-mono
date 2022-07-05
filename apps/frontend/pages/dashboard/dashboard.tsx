@@ -1,7 +1,10 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { useUserContext } from '../../context/userContext';
 import AppShell from '../../views/common/AppShell';
 
 function Dashboard() {
+    const { userData } = useUserContext();
+    console.log({ userData });
     return (
         <AppShell>
             <div className="py-4">

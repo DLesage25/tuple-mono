@@ -32,7 +32,6 @@ export class UserService {
     // }
 
     findOne(id: string): Observable<Payload<User>> {
-        console.log({ id });
         return this.dao.findOne(id).pipe(
             switchMap((res) => {
                 return of({

@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '@tuple/service-modules';
-import { map } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
+import { UserWithRoles } from './users.model';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('users')
@@ -20,12 +21,22 @@ export class UsersController {
     }
 
     @Get('/sub/:sub')
-    findBySub(@Param('sub') sub: string) {
+    findBySub(@Param('sub') sub: string): Observable<UserWithRoles> {
         return this.service.getUser(sub).pipe(
-            map((user) => {
-                if (!user)
+            map((userData) => {
+                if (!userData)
                     return new NotFoundException(`User with ${sub} not found.`);
-                return user;
+                return userData;
+            }),
+            switchMap((user) => {
+                return this.service.getUserRoles(sub).pipe(
+                    map((roles) => {
+                        return {
+                            ...user,
+                            roles,
+                        };
+                    })
+                );
             })
         );
     }

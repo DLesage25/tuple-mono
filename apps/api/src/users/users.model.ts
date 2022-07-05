@@ -1,3 +1,4 @@
+import { Role } from '@tuple/auth';
 import { Table, Column, Model, IsUUID } from 'sequelize-typescript';
 
 @Table
@@ -14,4 +15,8 @@ export class User extends Model {
 
     @Column
     sub: string;
+}
+
+export interface UserWithRoles extends Partial<User> {
+    roles: Role[];
 }

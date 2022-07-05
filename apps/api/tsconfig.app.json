@@ -8,5 +8,5 @@
     "target": "es2015"
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../libs/auth/src/lib/auth_mgmt_api/auth_mgmt_api.service.ts", "../../libs/auth/src/lib/auth_mgmt_api/auth_mgmt_api.service.spec.ts", "../../libs/auth/src/lib/auth_mgmt_api/auth_mgmt_api.module.ts"]
 }

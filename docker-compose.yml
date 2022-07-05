@@ -29,15 +29,29 @@ services:
         build:
             context: .
             dockerfile: ./apps/api/Dockerfile
-        environment:
-            DB_URL: postgres://user:password@postgres:5432/db
-            DB_USER: user
-            DB_PASSWORD: password
-            DB_HOST: db
+        # environment:
+        #     DB_URL: postgres://user:password@postgres:5432/db
+        #     DB_USER: user
+        #     DB_PASSWORD: password
+        #     DB_HOST: db
         ports:
             - 3000:3000
         env_file:
-            - ./apps/api/.env
+            - ./apps/api/.env.local
+        networks:
+            - webnet
+        depends_on:
+            - postgres
+    user-service:
+        build:
+            context: .
+            dockerfile: ./apps/user-service/Dockerfile
+        environment:
+            test: 'test'
+        ports:
+            - 3001:3001
+        env_file:
+            - ./apps/user-service/.env.local
         networks:
             - webnet
         depends_on:
@@ -51,7 +65,7 @@ services:
         ports:
             - 4200:4200
         env_file:
-            - ./apps/frontend/.env
+            - ./apps/frontend/.env.local
         networks:
             - webnet
         depends_on:
