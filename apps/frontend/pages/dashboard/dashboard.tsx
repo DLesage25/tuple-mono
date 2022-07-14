@@ -1,4 +1,4 @@
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUserContext } from '../../context/userContext';
 import AppShell from '../../views/common/AppShell';
 

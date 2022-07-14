@@ -65,7 +65,8 @@ const useApi = (
             }
         };
         fetchData();
-    }, []); //adding options here trigger an infinite loop
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return state;
 };
 
