@@ -1,10 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import useGetUser from '../../hooks/useGetUser';
 import AppShell from '../../views/common/AppShell';
 
-function Dashboard() {
-    const userData = useGetUser();
-    console.log({ userData });
+function Team() {
     return (
         <AppShell>
             <div className="py-4">
@@ -14,4 +11,4 @@ function Dashboard() {
     );
 }
 
-export default withPageAuthRequired(Dashboard);
+export default withPageAuthRequired(Team);

@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import Router from 'next/router';
 import Image from 'next/image';
 
 import {
@@ -17,8 +16,7 @@ import {
 
 import DesktopSidebar from '../../components/appshell/DesktopSidebar';
 import { classNames } from '../../utils/classNames';
-import { useUserContext } from '../../context/userContext';
-import LoaderPage from '../../components/common/LoaderPage';
+import { useAppContext } from '../../context/appContext';
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -36,14 +34,8 @@ export default function AppShell({
     token?: string;
     children: React.ReactNode;
 }) {
+    const { appData } = useAppContext();
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const { userData } = useUserContext();
-
-    useEffect(() => {
-        if (!userData) Router.push('/logged_in');
-    });
-
-    if (!userData) return <LoaderPage />;
 
     return (
         <>
@@ -194,7 +186,7 @@ export default function AppShell({
                     <div className="py-6">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <h1 className="text-2xl font-semibold text-gray-900">
-                                Dashboard
+                                {appData.selectedPage}
                             </h1>
                         </div>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
