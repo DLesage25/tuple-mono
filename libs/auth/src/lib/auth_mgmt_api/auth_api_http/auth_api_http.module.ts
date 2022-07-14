@@ -1,15 +1,15 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthMgmtApiService } from './auth_mgmt_api.service';
-import { AuthApiHttpModule } from './auth_api_http/auth_api_http.module';
+import { AuthApiHttpService } from './auth_api_http.service';
 
 @Module({
     imports: [
+        ConfigModule,
         HttpModule.registerAsync({
             imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => ({
-                baseURL: configService.get('TUPLE_API_AUTH0_MGMT_API_URL'),
+                baseURL: configService.get('TUPLE_API_AUTH0_MGMT_API_AUTH_URL'),
                 headers: {
                     Authorization: `Bearer ${configService.get(
                         'TUPLE_API_AUTH0_MGMT_API_TOKEN'
@@ -18,9 +18,8 @@ import { AuthApiHttpModule } from './auth_api_http/auth_api_http.module';
             }),
             inject: [ConfigService],
         }),
-        AuthApiHttpModule,
     ],
-    providers: [AuthMgmtApiService],
-    exports: [AuthMgmtApiService],
+    providers: [AuthApiHttpService],
+    exports: [AuthApiHttpService],
 })
-export class AuthMgmtApiModule {}
+export class AuthApiHttpModule {}
