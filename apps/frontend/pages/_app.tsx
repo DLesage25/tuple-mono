@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { UserProvider } from '../context/userContext';
+import { AppContextProvider } from '../context/appContext';
 
 function CustomApp({ Component, pageProps }: AppProps) {
     return (
@@ -11,7 +12,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
             </Head>
             <main className="app h-full">
                 <UserProvider>
-                    <Component {...pageProps} />
+                    <AppContextProvider>
+                        <Component {...pageProps} />
+                    </AppContextProvider>
                 </UserProvider>
             </main>
         </>

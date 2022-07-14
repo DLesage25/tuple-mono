@@ -10,11 +10,20 @@ import {
     UsersIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '../../utils/classNames';
-import { useUserContext } from '../../context/userContext';
+import useGetUser from '../../hooks/useGetUser';
+import { useAppContext } from '../../context/appContext';
+import Router from 'next/router';
 
-const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Team', href: '#', icon: UsersIcon, current: false },
+interface NavigationOption {
+    name: string;
+    href: string;
+    icon: any;
+    current: boolean;
+}
+
+const navigation: NavigationOption[] = [
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
+    { name: 'Team', href: '/team', icon: UsersIcon, current: false },
     { name: 'Projects', href: '#', icon: FolderIcon, current: false },
     { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
     { name: 'Documents', href: '#', icon: InboxIcon, current: false },
@@ -22,8 +31,14 @@ const navigation = [
 ];
 
 export default function DesktopSidebar() {
-    const { userData } = useUserContext();
-    const { name, picture } = userData;
+    const { appData, setAppData } = useAppContext();
+    const userData = useGetUser();
+    const { name, picture } = userData || {};
+
+    const onSidebarClick = (item: NavigationOption) => {
+        setAppData({ selectedPage: item.name });
+        Router.push(item.href);
+    };
 
     return (
         <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
@@ -43,9 +58,9 @@ export default function DesktopSidebar() {
                     {navigation.map((item) => (
                         <a
                             key={item.name}
-                            href={item.href}
+                            onClick={() => onSidebarClick(item)}
                             className={classNames(
-                                item.current
+                                item.name === appData.selectedPage
                                     ? 'bg-gray-900 text-white'
                                     : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                 'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -53,7 +68,7 @@ export default function DesktopSidebar() {
                         >
                             <item.icon
                                 className={classNames(
-                                    item.current
+                                    item.name === appData.selectedPage
                                         ? 'text-gray-300'
                                         : 'text-gray-400 group-hover:text-gray-300',
                                     'mr-3 flex-shrink-0 h-6 w-6'
@@ -72,18 +87,20 @@ export default function DesktopSidebar() {
                 >
                     <div className="flex items-center">
                         <div>
-                            <Image
-                                className="inline-block h-9 w-9 rounded-full"
-                                src={picture}
-                                alt=""
-                                height="40%"
-                                width="40%"
-                                objectFit="contain"
-                            />
+                            {picture && (
+                                <Image
+                                    className="inline-block h-9 w-9 rounded-full"
+                                    src={picture}
+                                    alt=""
+                                    height="40%"
+                                    width="40%"
+                                    objectFit="contain"
+                                />
+                            )}
                         </div>
                         <div className="ml-3">
                             <p className="text-sm font-medium text-white">
-                                {name}
+                                {name || 'Loading'}
                             </p>
                             <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">
                                 View profile
