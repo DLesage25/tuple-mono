@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AuthMgmtApiService, Role } from '@tuple/auth';
 import { User } from '@tuple/user-dao';
-import { catchError, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UserHttpService } from './http/user/user.http.service';
 
 export interface Payload<T> {

@@ -18,16 +18,15 @@ interface NavigationOption {
     name: string;
     href: string;
     icon: any;
-    current: boolean;
 }
 
 const navigation: NavigationOption[] = [
-    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
-    { name: 'Team', href: '/team', icon: UsersIcon, current: false },
-    { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-    { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
+    { name: 'Team', href: '/team', icon: UsersIcon },
+    { name: 'Projects', href: '#', icon: FolderIcon },
+    { name: 'Calendar', href: '#', icon: CalendarIcon },
+    { name: 'Documents', href: '#', icon: InboxIcon },
+    { name: 'Reports', href: '#', icon: ChartBarIcon },
 ];
 
 export default function DesktopSidebar() {
@@ -48,7 +47,6 @@ export default function DesktopSidebar() {
                         className="h-8 w-auto"
                         src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                         alt="Workflow"
-                        // layout="fill"
                         height="50%"
                         width="100%"
                         objectFit="contain"
@@ -81,10 +79,7 @@ export default function DesktopSidebar() {
                 </nav>
             </div>
             <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                <div
-                    // href="#"
-                    className="flex-shrink-0 w-full group block"
-                >
+                <div className="flex-shrink-0 w-full group block">
                     <div className="flex items-center">
                         <div>
                             {picture && (

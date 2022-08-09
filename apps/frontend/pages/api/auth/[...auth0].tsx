@@ -8,7 +8,7 @@ export default handleAuth({
                 // Add the `offline_access` scope to also get a Refresh Token
                 scope: process.env.AUTH0_SCOPE,
             },
-            returnTo: '/logged_in',
+            returnTo: '/',
         });
     },
 });
